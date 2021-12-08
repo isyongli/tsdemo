@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>promise</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var log = console.log
+      const PENDING = 'pending'
+      const RESOLVED = 'resolved'
+      const REJECTED = 'rejected'
+      function Promise(excutor) {
+        const self = this
+        self.status = PENDING
+        self.data = undefined
+        self.callbacks = []
+        function reslove(value) {
+          log("======reslove=:",value);
+          log("======self=:",self);
+          if (self.status !== PENDING) {
+            return
+          }
+          log("======RESOLVED=:",RESOLVED);
+          self.status = RESOLVED
+          self.data = value
+          self.callbacks.forEach(cbObj => {
+            cbObj.onResolved(value)
+          })
+        }
+        function reject(reason) {
+          if (self.status !== PENDING) {
+            return
+          }
+          self.status = REJECTED
+          self.data = reason
+          self.callbacks.forEach(cbObj => {
+            cbObj.onRejected(reason)
+          })
+        }
+        log("======abcdefg=:",self);
+        try {
+          excutor(reslove, reject)
+        } catch (error) {
+          reject(error)
+        }
+      }
+      Promise.prototype.then = function (onResolved, onRejected) {
+        const self = this
+        if (self.status == PENDING) {
+          self.callbacks.push({
+            onResolved,
+            onRejected
+          })
+        } else if (self.status == RESOLVED) {
+          setTimeout(() => {
+            onResolved(self.data)
+          })
+        } else {
+          setTimeout(() => {
+            onRejected(self.data)
+          })
+        }
+      }
+      const p = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(1)
+        }, 1000)
+      })
+      // p.then(
+      //   value => {
+      //     log('value', value)
+      //   },
+      //   reason => {
+      //     log('reason', reason)
+      //   }
+      // )
+    </script>
+  </body>
+</html>

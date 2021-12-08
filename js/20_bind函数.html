@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>bind 函数</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <script type="text/javascript">
+      const log = console.log
+      function fun() {
+        log('===log===')
+      }
+      Function.prototype.bind = function (obj, arg) {
+        var arg = Array.prototype.slice.call(arguments, 1)
+        var context = this
+        return function (newArg) {
+          arg = arg.concat(Array.prototype.slice.call(newArg))
+          return context.apply(obj, arg)
+        }
+      }
+      Function.prototype.myBind = function () {
+        const context = this
+        let args = [].slice.call(arguments)
+        let thisValue = args.shift()
+        return function (options) {
+          args = args.concat([].slice.call(options))
+          return context.apply(thisValue, args)
+        }
+      }
+      Function.prototype.myBind1 = function () {
+        const context = this
+        let args = [].slice.call(arguments)
+        let thisValue = args.shift()
+        return function (options) {
+          args = args.concat([].slice.call(options))
+          return context.apply(thisValue, args)
+        }
+      }
+    </script>
+  </body>
+</html>

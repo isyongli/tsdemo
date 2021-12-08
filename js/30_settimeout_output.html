@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>每隔一秒输出</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      const log = console.log;
+      for(var i = 0; i< 10; i++){
+        setTimeout(()=>{
+            log(i);
+          },1000);
+      }
+      log(i);
+      Function.prototype.a = 1;
+      Object.prototype.b = 2; 
+      function A() {}
+      var a = new A();
+      log("a",a);
+      console.log(a.a, a.b); // undefined, 2 console.log(A.a, A.b); // 1, 2
+    </script>
+  </body>
+</html>

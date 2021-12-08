@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html dochtml="">
+  <head>
+    <meta charset="utf-8" />
+    <title>AjAx Demo</title>
+    <script type="text/javascript" src="https://lib.baomitu.com/jquery/3.5.1/jquery.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      // You convert a BigInt to a Number using the Number function
+      function toNumber(b) {
+        const n = Number(b)
+        if (BigInt(n) !== b) {
+          const msg = typeof b === 'bigint' ? `Can't convert BigInt ${b}n to Number, loss of precision` : `toNumber expects a BigInt`
+          throw new Error(msg)
+          // (or return NaN, depending on your needs)
+        }
+        return n
+      }
+      const num = toNumber(123n)
+      console.log('num', num)
+      window.onload = () => {
+        console.log('onload', $)
+        $.ajax({
+          //请求方式
+          type: 'POST',
+          //请求的媒体类型
+          contentType: 'application/json;charset=UTF-8',
+          //请求地址
+          url: 'http://127.0.0.1/admin/list/',
+          //数据，json字符串
+          data: JSON.stringify({}),
+          //请求成功
+          success: function (result) {
+            console.log(result)
+          },
+          //请求失败，包含具体的错误信息
+          error: function (e) {
+            console.log(e.status)
+            console.log(e.responseText)
+          }
+        })
+      }
+    </script>
+  </body>
+</html>

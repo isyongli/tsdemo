@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html dochtml="">
+  <head>
+    <meta charset="utf-8" />
+    <title>js 冒泡排序</title>
+    <style></style>
+  </head>
+  <body>
+    <script>
+      const log = console.log
+      let arr1 = [5, 3, 6, 7, 1, 2, 9, 0, 8, 10]
+      // log("===原始数据===:",arr1.toString());
+      let method1 = function (arr) {
+        let len = arr.length
+        for (let i = 0; i < len - 1; i++) {
+          // log("===排序前===:",arr.toString());
+          log('i', i)
+          for (let j = 0; j < len - 1 - i; j++) {
+            log('===len - 1 - i===:', len - 1 - i)
+            log('j', j)
+            if (arr[j] > arr[j + 1]) {
+              // log("===arr[j]===:",arr[j]);
+              // log("=== arr[j + 1]===:", arr[j + 1]);
+              let temp = arr[j]
+              arr[j] = arr[j + 1]
+              arr[j + 1] = temp
+            }
+            // log("===排序===:",arr.toString());
+          }
+          // log("===排序后===:",arr.toString());
+        }
+        return arr
+      }
+      console.time('method1的消耗的时间为')
+      method1(arr1)
+      console.timeEnd('method1的消耗的时间为')
+      console.log(arr1)
+
+      const a = [1, 2, 86, 3, 4, 56, 0.89, 2, 13, 54, 67, 8, 3, 4, 5, 2, 1, 7, 9]
+      for (let i = 0; i < a.length - 1; i++) {
+        for (let j = 0; j < a.length - 1 - i; j++) {
+          if (a[j] > a[j + 1]) {
+            const temp = a[j]
+            a[j] = a[j + 1]
+            a[j + 1] = temp
+          }
+        }
+        console.log('======a=====:', a)
+      }
+      //输出
+    </script>
+  </body>
+</html>

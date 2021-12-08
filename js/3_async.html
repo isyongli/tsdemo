@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html dochtml="">
+  <head>
+    <meta charset="utf-8" />
+    <title>async</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      async function fun01() {
+        console.log('==fun01==')
+        return 'fun01'
+      }
+      function fun02() {
+        console.log('==fun02==')
+      }
+      const a = fun01()
+      console.log('a', a)
+      fun02()
+    </script>
+  </body>
+</html>

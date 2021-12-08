@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../packages/vue/dist/vue.global.js"></script>
+    <!-- <script src="https://unpkg.com/vue@next"></script> -->
+    <style>
+        .list-item {
+            display: inline-block;
+            margin-right: 10px;
+            }
+            .list-enter-active,
+            .list-leave-active {
+            transition: all 1s ease;
+            }
+            .list-enter-from,
+            .list-leave-to {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+    </style>
+</head>
+
+<body>
+    <div id='app'></div>
+    <script>
+        const log = console.log;
+        const App = {
+            template: `
+            <div id="list-demo">
+                 <input v-focus  type="text" value="a" />
+                <button @click="add">Add</button>
+                <button @click="remove">Remove</button>
+                <transition-group name="list" tag="p">
+                    <span v-for="item in items" :key="item" class="list-item">
+                    {{ item }}
+                    </span>
+                </transition-group>
+                </div>
+            `,
+            directives: {
+                focus: {
+                    // 指令的定义
+                    mounted(el) {
+                    el.focus()
+                    }
+                }
+            },
+            setup(props){
+                log("setup",props);
+            },
+            data() {
+                return {
+                    message: 'Hello Vue 3!!',
+                    counter: 0 ,
+                    firstName: 'Li',
+                    lastName: 'Yong',
+                    items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                    nextNum: 10
+                }
+            },
+            computed: {
+                fullName: {
+                    // getter
+                    get() {
+                        log("===getter===:");
+                        return this.firstName + ' ' + this.lastName
+                    },
+                    // setter
+                    set(newValue) {
+                        log("===setter===:",newValue);
+                        const names = newValue.split(' ')
+                        this.firstName = names[0]
+                        this.lastName = names[names.length - 1]
+                    }
+                },
+            },
+            beforeCreate(){
+                log("beforeCreate");
+                this.fullName = 'John Doe'
+            },
+            created(){
+                log("created");
+            },
+            beforeMount(){
+                log("beforeMount");
+            },
+            mounted() {
+                log("mounted");
+                setInterval(() => {
+                // this.counter++
+                }, 1000)
+            },
+            //更新时候
+            beforeUpdate(){
+                log("beforeUpdate");
+            },
+            updated(){
+                log("updated");
+            },
+            //卸载
+            beforeUnmount(){
+                log("beforeUnmount");
+
+            },
+            unmounted(){
+                log("unmounted");
+            },
+            methods: {
+                click() {
+                    console.log('click ....', this.message)
+                    this.message = this.message.split('').reverse().join('')
+                },
+                randomIndex() {
+                    return Math.floor(Math.random() * this.items.length)
+                },
+                add() {
+                    this.items.splice(this.randomIndex(), 0, this.nextNum++)
+                },
+                remove() {
+                    this.items.splice(this.randomIndex(), 1)
+                }
+            }
+        }
+        console.log("Vue",Vue);
+        let vm = Vue.createApp(App).mount('#app');
+        vm.fullName = 'John Doe'
+        console.log(vm)
+        Vue.nextTick(function() {
+            log("===nextTick===:");
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>手写promise</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+    const log = console.log;
+    const PENDING = 'pengding'
+    const RESOVLED = 'resolved';
+    const REJECTED = 'rejected';
+    function MyPromise(excutor){
+      const self = this;
+      self.status = PENDING;
+      self.callbacks = [];
+      function resolve(vaue){
+        if(self.satus != PENDING) return;
+        self.status = RESOVLED;
+        self.data = vaue;
+        self.callbacks.forEach(fItem => {
+          fItem.onResolve(value);
+        })
+      }
+      function reject(reason){
+        if(self.satus != PENDING) return;
+        self.status = REJECTED;
+        self.data = reason;
+        self.callbacks.forEach(fItem => {
+          fItem.onResolve(reason);
+        })
+      }
+      excutor(resolve,reject);
+    }
+    MyPormise.prototype.then = function(onResolve,onReject){
+      const self = this;
+      if(self.status == PENDING){
+        self.callbacks.push({
+          onResolve,
+          onReject
+        })
+      }
+      if(self.status = RESOVLED){
+        setTimeout(()=>{
+          onResolve(self.data)
+        })
+      }
+      if(self.status = REJECTED){
+        setTimeout(()=>{
+          onReject(self.data)
+        })
+      }
+    }
+    </script>
+  </body>
+</html>

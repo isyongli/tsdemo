@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Object.defineProperty</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var log = console.log
+      // target目标对象
+      var person = {
+        name: 'zdf'
+      }
+      // handler拦截行为
+      var handler = {
+        get: function () {
+          return '疯子'
+        }
+      }
+
+      // 实例new Proxy()
+      var proxy = new Proxy(person, handler)
+      // 使用
+      proxy.name
+      proxy.title
+      proxy.job
+
+      // 打印结果
+      console.log(proxy.name) // => 疯子
+      console.log(proxy.title) // => 疯子
+      console.log(proxy['name']) // => 疯子
+
+      // target添加一个方法
+      var person = {
+        name: 'zdf',
+        say() {
+          log('say')
+          ;('we will rock you!')
+        }
+      }
+      // handler添加一个apply()拦截
+      var handler = {
+        apply(target, ctx, args) {
+          log('apply')
+          console.log('我说：' + args[0])
+        }
+      }
+      // 建一个新实例proxy1
+      var proxy1 = new Proxy(person.say, handler)
+      // 使用
+      proxy1('去你妈的房产商都去吃米田共吧！') // => 我说：去你妈的房产商都去吃米田共吧
+    </script>
+  </body>
+</html>

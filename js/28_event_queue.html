@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>js事件循环机制</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      const log = console.log;
+      function* sleep(ms){
+      yield new Promise(function(resolve,reject){ console.log(111);
+      setTimeout(resolve,ms);
+      })
+      } sleep(500).next().value.then(function(){console.log(2222)})
+    </script>
+  </body>
+</html>

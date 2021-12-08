@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>MVVM</title>
+  </head>
+  <body>
+    <div id="app">
+      {{someStr}}
+      <button v-on:click="update">更新</button>
+    </div>
+    <script src="./js/observer.js"></script>
+    <script src="./js/watcher.js"></script>
+    <script src="./js/compile.js"></script>
+    <script src="./js/mvvm.js"></script>
+    <script>
+      var vm = new MVVM({
+        el: '#app',
+        data: {
+          someStr: 'hello '
+        },
+
+        computed: {
+          getHelloWord: function () {
+            return this.someStr + this.child.someStr
+          }
+        },
+
+        methods: {
+          update() {
+            this.someStr = '111'
+          }
+        }
+      })
+
+      vm.$watch('child.someStr', function () {
+        console.log(arguments)
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html dochtml="">
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <script type="text/javascript">
+      function fun() {}
+      const log = console.log
+      log('fun', fun)
+      const f = new fun()
+      log('f', f)
+      function* helloWorldGenerator() {
+        yield 'hello'
+        yield 'world'
+        return 'ending'
+      }
+      var hw = helloWorldGenerator()
+      console.log(hw.next()) //第一次调用，Generator函数开始执行，直到遇到yield表达式为止。next方法返回一个对象，它的value属性就是当前yield语句后面表达式的值hello，done属性为false，表示遍历还没有结束
+      console.log(hw.next()) //第二次调用，Generator函数从上次yield表达式停下的地方，一直执行到下一个yield表达式。next方法返回的对象的value属性就是当前yield语句后面表达式的值world，done属性值为false，表示遍历还没有结束。
+      console.log(hw.next()) //第三次调用，Generator函数从上次yield表达式停下的地方，一直执行到return语句（如果没有return语句，则value属性为undefined），done属性为true，表示遍历已经执行结束。
+      console.log(hw.next()) //第四次调用，此时Generator函数已经执行完毕，next方法返回对戏那个的value属性为undefined，done属性为true，表示遍历结束。
+      console.log(hw.next()) //第五次执行和第四次执行的结果是一样的。
+      index.html
+    </script>
+  </body>
+</html>
